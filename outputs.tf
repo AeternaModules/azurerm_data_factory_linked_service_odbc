@@ -1,3 +1,7 @@
+output "data_factory_linked_service_odbcs_id" {
+  description = "Map of id values across all data_factory_linked_service_odbcs, keyed the same as var.data_factory_linked_service_odbcs"
+  value       = { for k, v in azurerm_data_factory_linked_service_odbc.data_factory_linked_service_odbcs : k => v.id }
+}
 output "data_factory_linked_service_odbcs_additional_properties" {
   description = "Map of additional_properties values across all data_factory_linked_service_odbcs, keyed the same as var.data_factory_linked_service_odbcs"
   value       = { for k, v in azurerm_data_factory_linked_service_odbc.data_factory_linked_service_odbcs : k => v.additional_properties }
