@@ -30,46 +30,6 @@ EOT
       username = string
     }))
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.data_factory_linked_service_odbcs : (
-        length(v.connection_string) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.data_factory_linked_service_odbcs : (
-        v.basic_authentication == null || (length(v.basic_authentication.username) > 0)
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.data_factory_linked_service_odbcs : (
-        v.basic_authentication == null || (length(v.basic_authentication.password) > 0)
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.data_factory_linked_service_odbcs : (
-        v.description == null || (length(v.description) > 0)
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.data_factory_linked_service_odbcs : (
-        v.integration_runtime_name == null || (length(v.integration_runtime_name) > 0)
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_data_factory_linked_service_odbc's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -80,5 +40,20 @@ EOT
   #   source:    [from factories.ValidateFactoryID] !ok
   # path: data_factory_id
   #   source:    [from factories.ValidateFactoryID] err != nil
+  # path: connection_string
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: basic_authentication.username
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: basic_authentication.password
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: description
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: integration_runtime_name
+  #   condition: length(value) > 0
+  #   message:   must not be empty
 }
 
