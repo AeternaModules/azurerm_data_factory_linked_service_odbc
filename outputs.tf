@@ -12,7 +12,7 @@ output "data_factory_linked_service_odbcs_annotations" {
 }
 output "data_factory_linked_service_odbcs_basic_authentication" {
   description = "Map of basic_authentication values across all data_factory_linked_service_odbcs, keyed the same as var.data_factory_linked_service_odbcs"
-  value       = { for k, v in azurerm_data_factory_linked_service_odbc.data_factory_linked_service_odbcs : k => v.basic_authentication if v.basic_authentication != null && length(v.basic_authentication) > 0 }
+  value       = { for k, v in azurerm_data_factory_linked_service_odbc.data_factory_linked_service_odbcs : k => one(v.basic_authentication) if v.basic_authentication != null && length(v.basic_authentication) > 0 }
   sensitive   = true
 }
 output "data_factory_linked_service_odbcs_connection_string" {
